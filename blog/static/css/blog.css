@@ -39,7 +39,7 @@ h4 {
 .top-menu:visited {
   color: #ffffff;
   float: right;
-  font-size: 26pt;
+  font-size: 18pt;
   margin-right: 20px;
 }
 
@@ -55,6 +55,7 @@ h4 {
 .post > .date,
 .post > .actions {
   float: right;
+  margin-right: 0.75rem;
 }
 
 .btn-secondary,

@@ -5,10 +5,15 @@
     <a class="btn btn-secondary" href="{% url 'post_edit' pk=post.pk %}">
       {% include './icons/pencil-fill.svg' %}
     </a>
+    <a class="btn btn-secondary" href="{% url 'post_delete' pk=post.pk %}"
+      >&#x2715;</span
+    ></a>
     {% endif %}
   </aside>
   {% if post.published_date %}
   <time class="date"> {{ post.published_date }} </time>
+  {% else %}
+  <a href="{% url 'post_publish' pk=post.pk %}" class="date btn btn-secondary">Publish</a>
   {% endif %}
   <h2>{{ post.title }}</h2>
   <p>{{ post.text|linebreaksbr }}</p>
