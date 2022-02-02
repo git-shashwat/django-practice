@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-
+from django.contrib.auth.decorators import login_required
 from blog.forms import PostForm
 from .models import Post
 
@@ -12,18 +12,21 @@ def post_list(request):
         'posts': posts
     })
 
+@login_required
 def draft_list(request):
     drafts = Post.objects.filter(published_date__isnull=True).order_by('-created_date')
     return render(request, 'blog/post_list.html', {
         'posts': drafts
     })
 
+@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk = pk)
     return render(request, 'blog/post_detail.html', {
         'post': post
     })
 
+@login_required
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -38,6 +41,7 @@ def post_new(request):
         'form': form
     })
 
+@login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk = pk)
     if request.method == "POST":
@@ -54,11 +58,13 @@ def post_edit(request, pk):
         'form': form
     })
 
+@login_required
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk = pk)
     post.publish()
     return redirect('post_detail', pk = pk)
 
+@login_required
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk = pk)
     post.delete()
